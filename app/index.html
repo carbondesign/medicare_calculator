@@ -2,97 +2,73 @@
 <html lang="en" ng-app="fantasyApp">
 <head>
   <meta charset="utf-8">
+  <title>Medicare Reimbursment App</title>
   <link rel="stylesheet" href="css/app.css"/>
   <link rel="stylesheet" href="lib/bootstrap/docs/assets/css/bootstrap.css" />
   <link rel="stylesheet" href="lib/bootstrap/docs/assets/css/bootstrap-responsive.css" />
 </head>
 <body>
 
-    <header data-ng-include="'views/header.html'" class="navbar navbar-fixed-top navbar-inverse ng-scope"></header>
+  <header data-ng-include="'views/header.html'" class="navbar navbar-fixed-top navbar-inverse ng-scope"></header>
 
-    <section class="content" ng-controller="CMS_controller">
-      <section class="container">
-        <form id="search_json" class="form-search">
-          <input id="zip_code" type="text" placeholder="Enter zip code" class="search-query">
-          <button type="submit" ng-click="zipcode()">Search</button>
-        </form>
-        {{data}}
-        <div class="accordion" id="results">
-        <div ng-repeat="item in data" ng-switch="item.npi != data[$index-1].npi">
-          <div ng-if="$first"><strong>Results: {{data.length}} health care providers in {{data[0].nppes_provider_zip}}</strong></div>
-        
-        
-        
-            <div class="accordion-heading row" ng-switch-when="true">
-              <a class="accordion-toggle" data-toggle="collapse" data-parent="results" href="#npi_{{item.npi}}" >
-                <!-- {{item.npi}} {{ data[$index-1].npi}} -->
-                <h4 class="span4">{{item.nppes_provider_first_name}} {{item.nppes_provider_last_org_name}} </h4><span class="span4" >{{item.provider_type}} </span> 
-              </a>
-              <div class="span12"  >{{item.nppes_provider_street1}} {{item.nppes_provider_street2}},{{item.nppes_provider_city}}, {{item.nppes_provider_state}} {{item.nppes_provider_zip}}</div>
-            </div>
-            <table class="table">
-              <thead ng-switch-when="true" class="row">
-                <th class="span1">HCPCS<br>Code</th>
-                <th class="span4">Service</th>
-                <th class="span1">Patients</th>
-                <th class="span1">Times Preformed</th>
-                <th class="span1">Averaged Billed</th>
-                <th class="span1">Averaged Reimbursed</th>
-                <th class="span1">Total Billed</th>
-              </thead>
-            <tbody>
-            <tr>
-              <td  class="span1">
-                {{item.hcpcs_code}}
-              </td>
-              <td class="span4" >
-                {{item.hcpcs_description}}
-              </td>
-              <td class="span1" >
-                {{item.bene_unique_cnt}}
-              </td>
-              <td class="span1" >
-                {{item.line_srvc_cnt}}
-              </td>
-              <td class="span1" >
-                ${{item.average_submitted_chrg_amt| number:0 }}
-              </td>
-              <td class="span1" >
-                ${{item.average_medicare_payment_amt | number:0}}
-              </td>
-              <td class="span1" >
-                {{item.line_srvc_cnt * item.average_medicare_payment_amt | number:0}}
-              </td>
+  <section class="content" ng-controller="CMS_controller">
+    <section class="container">
+      <form id="search_json" class="form-search">
+        <input id="zip_code" type="text" placeholder="Enter zip code" class="search-query" ng-model="searchTerm"> 
+        <button type="submit" ng-click="search()">Search</button>
+      </form>
+  
 
-
-              </tr>
-             </table> 
-             </tbody> 
-           
-         
+<!-- {{data}}
+ -->  <div ng-show="data" > 
+            <strong>Results: {{data.length}} health care providers in {{searchTerm}}</strong>
         </div>
+      <div class="accordion" id="results" ng-repeat="item in data">
+        <div ng-repeat = "provider in item.provider">
+          <!-- <button type="button" class="btn btn-default btn-small" data-toggle="" ><i class="icon-plus icon"></i></button> -->
+         <h4 class="provider_name span5" ng-show="$first"> {{provider[1]}} {{provider[2]}} </h4>
+         <span class="span5" ng-show="$first">{{provider[8]}}</span>
 
+         <div class="span12 provider_address" ng-show="$first">{{provider[3]}} {{provider[4]}}, {{provider[5]}}, {{provider[6]}} {{provider[7]}}</div >
+          
+        </div>
         
-      </div> 
-        
-      </section>
-    </section>
+ 
+      <div  class="span12">
+        {{item.values
+      }}
+        <table >
+          <tr>
+            <td></td>
+            
+          </tr>
+          
+        </table>
+      </div>
 
-    <script src="http://static.firebase.com/v0/firebase.js"></script>
-    <script src="https://cdn.firebase.com/v0/firebase-simple-login.js"></script>
-    <script src="lib/angular/angular.js"></script>
-    <script src="lib/angular-resource/angular-resource.min.js"></script>
-    <script src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="lib/angular-route/angular-route.min.js"></script>
-    <script src="lib/angular-fire/angularFire.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/config.js"></script>
-    <script src="js/controllers/headercontroller.js"></script>
-    <script src="js/controllers/signincontroller.js"></script>
-    <script src="js/controllers/signupcontroller.js"></script>
-    <script src="js/controllers/CMS_controller.js"></script>
-    <script src="js/services/loginservice.js"></script>
-    <script src="js/services/profilecreator.js"></script>
-    <script src="js/services/CMS_service.js"></script>
-  </body>
+  </div> 
+
+</section>
+</section>
+
+<script src="http://static.firebase.com/v0/firebase.js"></script>
+<script src="https://cdn.firebase.com/v0/firebase-simple-login.js"></script>
+<script src="lib/jquery/jquery.js"></script>
+<script src="lib/angular/angular.js"></script>
+<script src="lib/angular-resource/angular-resource.min.js"></script>
+<script src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="lib/bootstrap/js/bootstrap-collapse.js"></script>
+<script src="lib/bootstrap/js/bootstrap-button.js"></script>
+<script src="lib/angular-route/angular-route.min.js"></script>
+<script src="lib/angular-fire/angularFire.js"></script>
+<script src="js/app.js"></script>
+<script src="js/config.js"></script>
+<script src="js/controllers/headercontroller.js"></script>
+<script src="js/controllers/signincontroller.js"></script>
+<script src="js/controllers/signupcontroller.js"></script>
+<script src="js/controllers/CMS_controller.js"></script>
+<script src="js/services/loginservice.js"></script>
+<script src="js/services/profilecreator.js"></script>
+<script src="js/services/CMS_service.js"></script>
+</body>
 </html>
