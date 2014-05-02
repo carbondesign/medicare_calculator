@@ -1,5 +1,5 @@
 'use strict';
-angular.module('fantasyApp.controllers.CMS', ['fantasyApp.services.CMS_service'] )
+angular.module('fantasyApp.controllers.CMS', ['fantasyApp.services.CMS_service','fantasyApp.filters'] )
 .controller('CMS_controller', ['$scope','$routeParams','$http','CMS_service',function($scope,CMS_service,$http){
 	$scope.search= function(){
 		
@@ -26,15 +26,21 @@ angular.module('fantasyApp.controllers.CMS', ['fantasyApp.services.CMS_service']
 				            }
 				        );
 				    }
+				    var tot_cost = data[i]['bene_unique_cnt'] * data[i]['average_medicare_payment_amt'];
 				    //Save values into correct position
 				    temp[temp_keys[data[i]['npi']]]['provider'].push([data[i]['npi'], data[i]['nppes_provider_first_name'], data[i]['nppes_provider_last_org_name']
-				    	, data[i]['nppes_provider_street1'], data[i]['nppes_provider_street2'], data[i]['nppes_provider_city'], data[i]['nppes_provider_state'], data[i]['nppes_provider_zip'], data[i]['provider_type']]);
-				    temp[temp_keys[data[i]['npi']]]['values'].push(data[i]['hcpcs_description'],data[i]['bene_unique_cnt'], data[i]['average_submitted_chrg_amt'], data[i]['average_medicare_payment_amt'],data[i]['line_srvc_cnt']);
+				    	, data[i]['nppes_provider_street1'], data[i]['nppes_provider_street2'], data[i]['nppes_provider_city'], data[i]['nppes_provider_state'], data[i]['nppes_provider_zip'], data[i]['provider_type'],tot_cost]);
+				    temp[temp_keys[data[i]['npi']]]['values'].push([data[i]['hcpcs_code'],data[i]['hcpcs_description'], data[i]['bene_unique_cnt'], data[i]['line_srvc_cnt'], data[i]['average_submitted_chrg_amt'], data[i]['average_medicare_payment_amt']]);
 				}
 				
 				$scope.data =temp;
+				
+				$scope.select_compare = [];
+				jQuery('#checkboxes input:checked').each(function() {
+				    selected.push($(this).attr('name'));
+				});
 	
-				//data[0].nppes_provider_last_org_name ="bob"
+			
 				
 		  	});
 	}

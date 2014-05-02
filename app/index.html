@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8">
   <title>Medicare Reimbursment App</title>
-  <link rel="stylesheet" href="css/app.css"/>
+  
   <link rel="stylesheet" href="lib/bootstrap/docs/assets/css/bootstrap.css" />
   <link rel="stylesheet" href="lib/bootstrap/docs/assets/css/bootstrap-responsive.css" />
+  <link rel="stylesheet" href="css/app.css"/>
 </head>
 <body>
 
@@ -13,41 +14,51 @@
 
   <section class="content" ng-controller="CMS_controller">
     <section class="container">
-      <form id="search_json" class="form-search">
+      <form id="search_json" class="margin_0 form-search span4">
         <input id="zip_code" type="text" placeholder="Enter zip code" class="search-query" ng-model="searchTerm"> 
         <button type="submit" ng-click="search()">Search</button>
       </form>
+      <div class="span4" ng-show="data"> <strong>Results: {{data.length}} health care providers in {{searchTerm}}</strong></div>
+      <div ng-show="data" class="pull-right">Find Procedure: <input ng-model="searchText" placeholder="Start typing procedure name" class="search-query"></div><br>
   
 
 <!-- {{data}}
- -->  <div ng-show="data" > 
-            <strong>Results: {{data.length}} health care providers in {{searchTerm}}</strong>
-        </div>
-      <div class="accordion" id="results" ng-repeat="item in data">
-        <div ng-repeat = "provider in item.provider">
-          <!-- <button type="button" class="btn btn-default btn-small" data-toggle="" ><i class="icon-plus icon"></i></button> -->
-         <h4 class="provider_name span5" ng-show="$first"> {{provider[1]}} {{provider[2]}} </h4>
-         <span class="span5" ng-show="$first">{{provider[8]}}</span>
-
-         <div class="span12 provider_address" ng-show="$first">{{provider[3]}} {{provider[4]}}, {{provider[5]}}, {{provider[6]}} {{provider[7]}}</div >
-          
-        </div>
+ -->  <div ng-show="data" class="container clearfix margin_t20 margin_b20"> 
         
- 
-      <div  class="span12">
-        {{item.values
-      }}
-        <table >
-          <tr>
-            <td></td>
-            
-          </tr>
-          
-        </table>
+           
       </div>
+      <div class=""  ng-repeat="item in data" >
+        <div class="row" ng-repeat = "provider in item.provider">
+            <!-- <button type="button" class="btn btn-default btn-small" data-toggle="" ><i class="icon-plus icon"></i></button> -->
+             
+          <label class="span1 margin_l20px margin_t10 width_auto" ng-show="$first"><input name="{{provider[0]}}" ng-model="compare" type="checkbox" class="icon-toggle"></label>
+          <h4 class="provider_name span5 margin_t10" ng-show="$first"> {{provider[1]}} {{provider[2]}} </h4>
+          <span class="span5 margin_t10" ng-show="$first">{{provider[8]}}</span>
+          <span class="span1 margin_t10" ng-model="medicare.cost" ng-show="$first">{{provider[9] | number:2}}</span>
 
-  </div> 
+          <div class="span12 provider_address margin_b20" ng-show="$first">{{provider[3]}} {{provider[4]}}, {{provider[5]}}, {{provider[6]}} {{provider[7]}}
+          </div >
+          
+        </div>
+        <div class="row">
+          <table class="table span12">
+            
+              <tbody>
+                  <tr ng-repeat = "value in item.values | filter:searchText" >
+                    <td class="span4">{{value[1]}}<span class="hidden">{{value[0]}}</span></td>
+                    <td class="span2">{{value[2]}}</td>
+                    <td class="span2">{{value[3]}}</td>
+                    <td class="span2">{{value[4] | number:2}}</td>
+                    <td class="span2">{{value[5] | number:2}}</td>
+                  </tr>
+              </tbody>
+         
+          </table>
+        </div>
+      </div> 
 
+        
+      
 </section>
 </section>
 
@@ -70,5 +81,6 @@
 <script src="js/services/loginservice.js"></script>
 <script src="js/services/profilecreator.js"></script>
 <script src="js/services/CMS_service.js"></script>
+<script src="js/filters/toArrayfilter.js"></script>
 </body>
 </html>

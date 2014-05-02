@@ -1,3 +1,15 @@
+.margin_b20{margin-bottom: 20px;}
+.margin_t20{margin-top: 20px;}
+.margin_tl0{margin-left: 20px;}
+.margin_0{margin: 0px;}
+.margin_t10{margin-top: 10px;}
+.width_auto{width:0% !important}
+
+.clearfix {
+clear: both;
+}
+h4{color: #1171CA;}
+
 .navbar .nav> li > a.brand {
     padding-left: 20px;
     margin-left: 0;
@@ -28,3 +40,16 @@ footer p{
   display: inline;
   list-style-type: none;
 }
+
+input.icon-toggle[type=checkbox] + label::before
+{
+color: #999;
+font-size: 20px;
+text-align: center;
+}
+input.icon-toggle[type=checkbox]:checked + label::before
+{
+color: #E4BF00;
+padding: 0 0 0 0px;
+}
+
