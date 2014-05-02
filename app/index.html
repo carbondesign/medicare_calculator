@@ -27,17 +27,21 @@
         
            
       </div>
-      <div class=""  ng-repeat="item in data" >
-        <div class="row" ng-repeat = "provider in item.provider">
+      <div class=""  ng-repeat="item in data | filter:searchText" >
+        <div class="row" ng-repeat = "provider in item.info"  ng-show="$first">
             <!-- <button type="button" class="btn btn-default btn-small" data-toggle="" ><i class="icon-plus icon"></i></button> -->
              
-          <label class="span1 margin_l20px margin_t10 width_auto" ng-show="$first"><input name="{{provider[0]}}" ng-model="compare" type="checkbox" class="icon-toggle"></label>
-          <h4 class="provider_name span5 margin_t10" ng-show="$first"> {{provider[1]}} {{provider[2]}} </h4>
+          <label class="span1 margin_l20px margin_t10 width_auto" ><input name="{{provider[0]}}" ng-model="compare" type="checkbox" class="icon-toggle"></label>
+          <h4 class="provider_name span5 margin_t10" if="item.values[1]| filter:searchText">{{provider[1]}} {{provider[2]}} </h4>
           <span class="span5 margin_t10" ng-show="$first">{{provider[8]}}</span>
-          <span class="span1 margin_t10" ng-model="medicare.cost" ng-show="$first">{{provider[9] | number:2}}</span>
+          <span class="span1 margin_t10" ng-model="medicare.cost" ></span>
 
-          <div class="span12 provider_address margin_b20" ng-show="$first">{{provider[3]}} {{provider[4]}}, {{provider[5]}}, {{provider[6]}} {{provider[7]}}
+          <div class="span12 provider_address margin_b20" >{{provider[3]}} {{provider[4]}}, {{provider[5]}}, {{provider[6]}} {{provider[7]}}
           </div >
+          
+        </div>
+        <div ng-repeat="total in item.total_cost" ng-show="$first">
+         {{ sum(item.total_cost)}}
           
         </div>
         <div class="row">
@@ -48,8 +52,8 @@
                     <td class="span4">{{value[1]}}<span class="hidden">{{value[0]}}</span></td>
                     <td class="span2">{{value[2]}}</td>
                     <td class="span2">{{value[3]}}</td>
-                    <td class="span2">{{value[4] | number:2}}</td>
-                    <td class="span2">{{value[5] | number:2}}</td>
+                    <td class="span2">{{value[4] | number:0}}</td>
+                    <td class="span2">{{value[5] | number:0}}</td>
                   </tr>
               </tbody>
          
