@@ -1,6 +1,8 @@
 'use strict';
 angular.module('fantasyApp.controllers.CMS', ['fantasyApp.services.CMS_service','fantasyApp.filters'] )
 .controller('CMS_controller', ['$scope','$routeParams','$http','CMS_service',function($scope,CMS_service,$http){
+	$scope.myData = [10,20,30,40,60, 80, 20, 50];
+$scope.bob = [100,79,31,137,3,21,16,29,30,12,3,45,3,61];
 	$scope.search= function(){
 		
 		var CMS_API = $http({method: 'GET', url: 'http://data.cms.gov/resource/jzd2-pt4g.json?nppes_provider_zip=' + $scope.searchTerm}).success(function(data)
@@ -38,9 +40,26 @@ angular.module('fantasyApp.controllers.CMS', ['fantasyApp.services.CMS_service',
 				    temp[temp_keys[data[i]['npi']]]['values'].push([data[i]['hcpcs_code'],data[i]['hcpcs_description'], data[i]['bene_unique_cnt'], data[i]['line_srvc_cnt'], data[i]['average_submitted_chrg_amt'], data[i]['average_medicare_payment_amt']]);
 				    temp[temp_keys[data[i]['npi']]]['total_cost'].push(tot_cost);
 
+
+				}
+				$scope.Math = window.Math;
+				$scope.data =temp;
+				
+				$scope.reimburse_graph = [];
+				for (var i in temp)
+				{	
+					var arg = {};
+					var charge_amnt = parseInt(temp[i].values[0][4]);
+					var reimburse_amnt = parseInt(temp[i].values[0][5]);
+					arg["charge"] =charge_amnt;
+					arg["reimburse"] =reimburse_amnt;
+					$scope.reimburse_graph.push(arg)
+				}
+				$scope.difference_graph = function(){
+					
+					return $scope.reimburse_graph
 				}
 				
-				$scope.data =temp;
 				// console.log($scope.data[0].total_cost)
 				$scope.sum = function(value_in) {
 					 //console.log(value_in);
