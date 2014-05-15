@@ -1,5 +1,5 @@
 'use strict';
-angular.module('fantasyApp.controllers.CMS', ['fantasyApp.services.CMS_service','fantasyApp.filters'] )
+angular.module('fantasyApp.controllers.CMS', ['fantasyApp.services.CMS_service'] )
 .controller('CMS_controller', ['$scope','$routeParams','$http','CMS_service',function($scope,CMS_service,$http){
 	$scope.myData = [10,20,30,40,60, 80, 20, 50];
 $scope.bob = [100,79,31,137,3,21,16,29,30,12,3,45,3,61];
