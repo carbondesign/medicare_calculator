@@ -4,6 +4,7 @@
 .margin_0{margin: 0px;}
 .margin_t10{margin-top: 10px;}
 .width_auto{width:0% !important}
+.relative{position: relative}
 
 .clearfix {
 clear: both;
@@ -74,3 +75,5 @@ padding: 0 0 0 0px;
   box-shadow: 2px 2px 2px #666;
 }
 
+#map_div { position:absolute; top:0; bottom:0; width:100%; height:100%;}
+#map, #map_div{height: 800px; width: 800px; display: block !important;visibility: visible !important;}

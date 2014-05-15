@@ -2,11 +2,13 @@
 <html xmlns:ng="http://angularjs.org" id="ng-app" lang="en" ng-app="fantasyApp">
 <head>
   <meta charset="utf-8">
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
   <title>Medicare Reimbursment App</title>
   
   <link rel="stylesheet" href="lib/bootstrap/docs/assets/css/bootstrap.css" />
   <link rel="stylesheet" href="lib/bootstrap/docs/assets/css/bootstrap-responsive.css" />
   <link rel="stylesheet" href="css/app.css"/>
+  <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
 </head>
 <body>
 
@@ -82,7 +84,7 @@
           </div>
         </div>
       </div>
-      <div class="tab-pane" id="graph">
+      <div class="tab-pane  fade" id="graph">
         {{reimburse_graph}}
        
         {{myData}} 
@@ -94,18 +96,21 @@
           yaxis-name = "'Frequency'" 
           yaxis-pos = "6"></div>
       </div>
-      <div class="tab-pane" id="map">map to come</div>
+      <div class="tab-pane  fade in relative" id="map">
+        <div id="map_div"></div>
+      </div>
     </div>
     <div ng-show="data" class="container clearfix margin_t20 margin_b20"> 
       
            
-      </div>
+    </div>
        
 
         
       
 </div>
 </section>
+
 
 <script src="http://static.firebase.com/v0/firebase.js"></script>
 <script src="https://cdn.firebase.com/v0/firebase-simple-login.js"></script>
@@ -132,5 +137,13 @@
 <script src="js/services/CMS_service.js"></script>
 <script src="js/directives/cmsdirective.js"></script>
 <script src="js/filters/toArrayfilter.js"></script>
+<script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
+<script>
+var map = L.mapbox.map('map_div', 'leigh765.i72gfcdp');
+$('#map').on('ready', function() {
+
+});
+    
+</script>
 </body>
 </html>
