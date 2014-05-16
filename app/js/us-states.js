@@ -1903,8 +1903,8 @@ var statesData = {
             "name": "Idaho",
             "exchange": 0,
             "race": [0.5, 2.2, 0.2, 0.5, 8.7, 86.5, 1.3],
-"plan": [14, 71, 12, 3, 0],            
-"age": [14, 9, 17, 16, 18, 26, 0]
+            "plan": [14, 71, 12, 3, 0],            
+            "age": [14, 9, 17, 16, 18, 26, 0]
         },
         "geometry": {"type": "Polygon",
             "coordinates": [

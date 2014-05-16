@@ -1,12 +1,6 @@
 'use strict';
-angular.module('fantasyApp.directives.cmsdirective', [] )
-.directive('ngCredits', [function($scope){
-  return {
-    restrict:'A',
+angular.module('dataApp.directives.BarGraph', [] )
 
-    template:'<div id="credits_modal" class="reveal-modal"> <h5>Sources</h5> <ul class="credits"> <li>Health and Human Services</li> </ul> <h5>Credits</h5> <ul class="credits"> <li>Denny Gainer</li> <li>Chad Palmer</li> </ul> <a class="close-reveal-modal"></a> </div>'
-  }
-}])
 .directive('ngBargraph', [function($scope){
   // define constants and helpers used for the directive
 
@@ -65,7 +59,7 @@ angular.module('fantasyApp.directives.cmsdirective', [] )
 
                             x.domain(data_chart.map(function(d) { return d; }));
                             y.domain([0, d3.max(data_chart, function(d) { return d; })]);
-                            
+
 
                             svg.append("g")
                                 .attr("class", "x axis")
@@ -94,7 +88,11 @@ angular.module('fantasyApp.directives.cmsdirective', [] )
                                 .attr("x", function(d) { return x(d)})
                                 .attr("width", x.rangeBand())
                                 .attr("y", function(d) { return height - d ; })
-                                .attr("height", function(d) { return (d); })
+                                .attr("height", function(d) { return (d); });
+
+                                scope.$watch('scope.datajson', function(){
+          console.log();
+        }, true); 
 
         }
     } //return

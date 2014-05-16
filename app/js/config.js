@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-angular.module('fantasyApp.config', [])
+angular.module('dataApp.config', [])
 
 app.config(['$routeProvider', 
     function($routeProvider) {

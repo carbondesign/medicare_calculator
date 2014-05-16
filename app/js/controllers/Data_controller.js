@@ -1,8 +1,8 @@
 'use strict';
-angular.module('fantasyApp.controllers.CMS', ['fantasyApp.services.CMS_service'] )
-.controller('CMS_controller', ['$scope','$routeParams','$http','CMS_service',function($scope,CMS_service,$http){
+angular.module('dataApp.controllers.Data', ['dataApp.services.CMS_service'] )
+.controller('Data_controller', ['$scope','$routeParams','$http','CMS_service',function($scope,CMS_service,$http){
 	$scope.myData = [10,20,30,40,60, 80, 20, 50, 60,40, 70];
-	$scope.bob = [{"num":100, "bob":2},{"num":79, "bob":3},{"num":31, "bob":4},{"num":137, "bob":5}];
+	$scope.bob = [{"num1":100, "bob1":2},{"num2":79, "bob2":3},{"num3":31, "bob3":4},{"num3":137, "bob3":5}];
 	$scope.difference_graph = [];
 	$scope.reimburse_graph = [];
 	$scope.search= function(){
@@ -65,7 +65,7 @@ angular.module('fantasyApp.controllers.CMS', ['fantasyApp.services.CMS_service']
 					//console.log(typeof($scope.difference_graph));
 				}
 				
-				
+				//can rewrite
 				$scope.sum = function(value_in) {
 					 //console.log(value_in);
 				        var total = 0;
@@ -89,6 +89,7 @@ angular.module('fantasyApp.controllers.CMS', ['fantasyApp.services.CMS_service']
 	    selected.push($(this).attr('name'));
 	});
 	console.log($scope.difference_graph);
+	
 	// Console.log of the $scope. whatever data sets...
 	console.log(angular.isArray($scope.difference_graph));
 	console.log(angular.isArray($scope.myData));
