@@ -1,8 +1,8 @@
 'use strict';
 angular.module('fantasyApp.controllers.CMS', ['fantasyApp.services.CMS_service'] )
 .controller('CMS_controller', ['$scope','$routeParams','$http','CMS_service',function($scope,CMS_service,$http){
-	$scope.myData = [10,20,30,40,60, 80, 20, 50];
-$scope.bob = [100,79,31,137,3,21,16,29,30,12,3,45,3,61];
+	$scope.myData = [10,20,30,40,60, 80, 20, 50, 60,40, 70];
+$scope.bob = [{"num":100, "bob":2},{"num":79, "bob":3},{"num":31, "bob":4},{"num":137, "bob":5}];
 	$scope.search= function(){
 		
 		var CMS_API = $http({method: 'GET', url: 'http://data.cms.gov/resource/jzd2-pt4g.json?nppes_provider_zip=' + $scope.searchTerm}).success(function(data)
@@ -33,7 +33,8 @@ $scope.bob = [100,79,31,137,3,21,16,29,30,12,3,45,3,61];
 				        );
 				    }
 				    var tot_cost = data[i]['bene_unique_cnt'] * data[i]['average_medicare_payment_amt'];
-				    //Save values into correct position
+
+				    //Save values into correct position int the array
 				    temp[temp_keys[data[i]['npi']]]['info'].push([data[i]['npi'], data[i]['nppes_provider_first_name'], data[i]['nppes_provider_last_org_name']
 				    	, data[i]['nppes_provider_street1'], data[i]['nppes_provider_street2'], data[i]['nppes_provider_city'], data[i]['nppes_provider_state'], data[i]['nppes_provider_zip'], data[i]['provider_type']]);
 
@@ -55,12 +56,17 @@ $scope.bob = [100,79,31,137,3,21,16,29,30,12,3,45,3,61];
 					arg["reimburse"] =reimburse_amnt;
 					$scope.reimburse_graph.push(arg)
 				}
-				$scope.difference_graph = function(){
-					
-					return $scope.reimburse_graph
+
+				$scope.difference_graph = [];
+				for (var i in $scope.reimburse_graph)
+				{	
+					var charge_value = $scope.reimburse_graph[i].charge;
+					$scope.difference_graph.push(charge_value);
+					//console.log(typeof($scope.difference_graph));
 				}
 				
-				// console.log($scope.data[0].total_cost)
+				var test = function(){return $scope.difference_graph}
+				
 				$scope.sum = function(value_in) {
 					 //console.log(value_in);
 				        var total = 0;

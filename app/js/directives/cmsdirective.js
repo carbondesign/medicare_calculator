@@ -56,16 +56,16 @@ angular.module('fantasyApp.directives.cmsdirective', [] )
 
                         var data_chart = scope.datajson;
 
-                            x.domain(data_chart.map(function(d) { return d; }));
-                            y.domain([0, d3.max(data_chart, function(d) { return d; })]);
+                            x.domain(data_chart.map(function(d) { return d.bob; }));
+                            y.domain([0, d3.max(data_chart, function(d) { return d.num; })]);
 
                             svg.append("g")
                                 .attr("class", "x axis")
                                 .attr("transform", "translate(0," + height + ")")
                                 .call(xAxis)
                                 .append("text")
-                                    .attr("x", scope.xaxisPos)
-                                    .attr("dx", ".71em")
+                                    .attr("x", scope.xaxisPos/2)
+                                    .attr("dx", "-1em")
                                     .style("text-anchor", "end")
                                     .text(scope.xaxisName);
                             // x axis legend setting from angular variables
@@ -74,7 +74,7 @@ angular.module('fantasyApp.directives.cmsdirective', [] )
                                 .call(yAxis)
                                 .append("text")
                                     .attr("transform", "rotate(-90)")
-                                    .attr("y", scope.yaxisPos)
+                                    .attr("y", scope.yaxisPos/2)
                                     .attr("dy", ".71em")
                                     .style("text-anchor", "end")
                                     .text(scope.yaxisName);
@@ -83,11 +83,11 @@ angular.module('fantasyApp.directives.cmsdirective', [] )
                                 .data(data_chart)
                                 .enter().append("rect")
                                 .attr("class", "bar")
-                                .attr("x", function(d) { return x(d); })
+                                .attr("x", function(d) { return x(d.bob)})
                                 .attr("width", x.rangeBand())
-                                .attr("y", function(d) { return y(d); })
-                                .attr("height", function(d) { return height - y(d); });
-                            
+                                .attr("y", function(d) { return height - d.num ; })
+                                .attr("height", function(d) { return (d.num); })
+
         }
     } //return
 }]); // directive
