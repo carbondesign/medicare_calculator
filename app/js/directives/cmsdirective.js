@@ -1,5 +1,12 @@
 'use strict';
 angular.module('fantasyApp.directives.cmsdirective', [] )
+.directive('ngCredits', [function($scope){
+  return {
+    restrict:'A',
+
+    template:'<div id="credits_modal" class="reveal-modal"> <h5>Sources</h5> <ul class="credits"> <li>Health and Human Services</li> </ul> <h5>Credits</h5> <ul class="credits"> <li>Denny Gainer</li> <li>Chad Palmer</li> </ul> <a class="close-reveal-modal"></a> </div>'
+  }
+}])
 .directive('ngBargraph', [function($scope){
   // define constants and helpers used for the directive
 
@@ -56,8 +63,9 @@ angular.module('fantasyApp.directives.cmsdirective', [] )
 
                         var data_chart = scope.datajson;
 
-                            x.domain(data_chart.map(function(value, index) { return value; }));
+                            x.domain(data_chart.map(function(d) { return d; }));
                             y.domain([0, d3.max(data_chart, function(d) { return d; })]);
+                            
 
                             svg.append("g")
                                 .attr("class", "x axis")
