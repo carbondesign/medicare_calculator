@@ -87,4 +87,8 @@ $scope.bob = [{"num":100, "bob":2},{"num":79, "bob":3},{"num":31, "bob":4},{"num
 				
 		  	});
 	}
+
+	// Console.log of the $scope. whatever data sets...
+	console.log(typeof($scope.difference_graph));
+	console.log(typeof($scope.myData));
 }]);

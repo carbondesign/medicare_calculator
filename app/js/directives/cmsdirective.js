@@ -56,8 +56,8 @@ angular.module('fantasyApp.directives.cmsdirective', [] )
 
                         var data_chart = scope.datajson;
 
-                            x.domain(data_chart.map(function(d) { return d.bob; }));
-                            y.domain([0, d3.max(data_chart, function(d) { return d.num; })]);
+                            x.domain(data_chart.map(function(value, index) { return value; }));
+                            y.domain([0, d3.max(data_chart, function(d) { return d; })]);
 
                             svg.append("g")
                                 .attr("class", "x axis")
@@ -83,10 +83,10 @@ angular.module('fantasyApp.directives.cmsdirective', [] )
                                 .data(data_chart)
                                 .enter().append("rect")
                                 .attr("class", "bar")
-                                .attr("x", function(d) { return x(d.bob)})
+                                .attr("x", function(d) { return x(d)})
                                 .attr("width", x.rangeBand())
-                                .attr("y", function(d) { return height - d.num ; })
-                                .attr("height", function(d) { return (d.num); })
+                                .attr("y", function(d) { return height - d ; })
+                                .attr("height", function(d) { return (d); })
 
         }
     } //return
